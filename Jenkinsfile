@@ -5,13 +5,19 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Code fetched from GitHub!'
+                checkout scm
             }
         }
 
-        stage('Hello') {
+        stage('Install pytest') {
             steps {
-                echo 'Hello World from Jenkins!'
+                sh 'python3 -m pip install pytest'
+            }
+        }
+
+        stage('Run Unit Tests') {
+            steps {
+                sh 'python3 -m pytest -v'
             }
         }
     }
